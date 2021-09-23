@@ -8,29 +8,32 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class NotesAdapter(private val listener: NotesAdapterListeners): RecyclerView.Adapter<NotesViewHolder>(){
+class NotesAdapter(private val listener: NotesAdapterListeners) :
+    RecyclerView.Adapter<NotesViewHolder>() {
 
     private val list = arrayListOf<NotesModel>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_notes,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_notes, parent, false)
         return NotesViewHolder(view, listener)
     }
+
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         holder.bind(list[position], position)
     }
-    override fun getItemCount(): Int {
-        return list.size
-    }
+
+    override fun getItemCount() = list.size
+
     fun add(user: NotesModel) {
         list.add(user)
         notifyDataSetChanged()
     }
 
     fun addAll(user: List<NotesModel>?) {
-        if (user!= null){
+        if (user != null) {
             list.clear()
-        list.addAll(user)
-        notifyDataSetChanged()}
+            list.addAll(user)
+            notifyDataSetChanged()
+        }
     }
 
     fun deleteAll() {
@@ -38,17 +41,20 @@ class NotesAdapter(private val listener: NotesAdapterListeners): RecyclerView.Ad
         notifyDataSetChanged()
     }
 
-    fun addNewItem(zagolovok: String?, kontent: String?, data: String?){
+    fun addNewItem(zagolovok: String?, kontent: String?, data: String?) {
         val item = NotesModel(title = zagolovok, content = kontent, dataTv = data)
         list.add(item)
         notifyDataSetChanged()
     }
+
     fun deleteItem(position: Int) {
         notifyItemRemoved(position)
         list.removeAt(position)
     }
 }
-class NotesViewHolder(view: View, private val listener: NotesAdapterListeners): RecyclerView.ViewHolder(view){
+
+class NotesViewHolder(view: View, private val listener: NotesAdapterListeners) :
+    RecyclerView.ViewHolder(view) {
 
     private val title = itemView.findViewById<TextView>(R.id.title)
     private val content = itemView.findViewById<TextView>(R.id.content)
@@ -59,15 +65,16 @@ class NotesViewHolder(view: View, private val listener: NotesAdapterListeners): 
         title.text = notesModel.title
         content.text = notesModel.content
         dataTv.text = notesModel.dataTv
-        korzina.setOnClickListener{
+        korzina.setOnClickListener {
             AlertDialog.Builder(itemView.context)
                 .setTitle("Вы уверены что хотите удалить запись?")
-                .setPositiveButton("да") { _, _ -> listener.deleteItem(position)}
-                .setNegativeButton("нет"){ _, _ -> }
+                .setPositiveButton("да") { _, _ -> listener.deleteItem(position) }
+                .setNegativeButton("нет") { _, _ -> }
                 .show()
         }
     }
 }
+
 interface NotesAdapterListeners {
     fun deleteItem(position: Int)
 }

@@ -30,7 +30,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
 }
@@ -47,7 +47,7 @@ dependencies {
 
     def room_version = "2.3.0"
 
-    implementation "androidx.room:room_runtime:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:2.3.0"
-    kapt "androidx.room:room_compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 }

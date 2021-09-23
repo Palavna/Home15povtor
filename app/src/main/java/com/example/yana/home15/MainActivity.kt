@@ -21,15 +21,6 @@ class MainActivity : AppCompatActivity(), NotesAdapterListeners {
     private lateinit var data: EditText
     private lateinit var delete: Button
 
-    private val zagolovokKontentDataResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == RESULT_OK) {
-                val zagolovok = it.data?.extras?.getString(ZAGOLOVOK)
-                val kontent = it.data?.extras?.getString(KONTENT)
-                val data = it.data?.extras?.getString(DATA)
-                adapter.addNewItem(zagolovok, kontent, data)
-            }
-        }
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,19 +28,19 @@ class MainActivity : AppCompatActivity(), NotesAdapterListeners {
         setContentView(binding.root)
         val toolBar = findViewById<Toolbar>(R.id.toolbar)
 
-    fun setupListeners(){
-            binding.delete.setOnClickListener{
+        fun setupListeners() {
+            binding.delete.setOnClickListener {
                 adapter.deleteAll()
             }
-            binding.plus.setOnClickListener{
+            binding.plus.setOnClickListener {
                 val intent = Intent(this, SecondActivity::class.java)
-                zagolovokKontentDataResult.launch(intent)
+                startActivity(intent)
             }
-            binding.delete.setOnClickListener{
+            binding.delete.setOnClickListener {
                 AlertDialog.Builder(this)
                     .setTitle("Вы уверены что хотите удалить все записи?")
                     .setPositiveButton("да") { _, _ -> adapter.deleteAll() }
-                    .setNegativeButton("нет"){ _, _ -> }
+                    .setNegativeButton("нет") { _, _ -> }
                     .show()
             }
         }
@@ -58,10 +49,19 @@ class MainActivity : AppCompatActivity(), NotesAdapterListeners {
         setupViews()
         setupRecycler()
     }
-    private fun setupViews(){
+
+    override fun onResume() {
+        super.onResume()
+        val list = RoomApp.DB?.getUserDao()?.getAllUsers()
+        adapter.addAll(list)
+
+    }
+
+    private fun setupViews() {
         recView = findViewById(R.id.recView)
     }
-    private fun setupRecycler(){
+
+    private fun setupRecycler() {
         adapter = NotesAdapter(this)
         binding.recView.adapter = adapter
     }
@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity(), NotesAdapterListeners {
     override fun deleteItem(position: Int) {
         adapter.deleteItem(position)
     }
+
     companion object {
         const val ZAGOLOVOK = "zagolovok"
         const val KONTENT = "kontent"

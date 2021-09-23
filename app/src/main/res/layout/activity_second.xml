@@ -9,91 +9,91 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="16dp"
         android:text="@string/zag"
         android:textSize="18sp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/zagolovok"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="22dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="22dp"
-        android:layout_marginStart="22dp"
         android:hint=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/zagtex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/zagolovok"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="16dp"
         android:text="@string/cont"
         android:textSize="18sp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/zagolovok" />
 
     <EditText
         android:id="@+id/kontent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/zagtex"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="22dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="22dp"
-        android:layout_marginStart="22dp"
         android:hint=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/zagtex"
         tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/tvData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/kontent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="240dp"
         android:text="@string/data"
         android:textSize="18sp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="240dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kontent" />
 
     <TextView
         android:id="@+id/data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvData"
-        app:layout_constraintStart_toStartOf="parent"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="22dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="22dp"
-        android:layout_marginStart="22dp"
+        android:clickable="true"
+        android:focusable="true"
         android:hint="@string/veb"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvData"
         tools:ignore="LabelFor" />
 
     <Button
         android:id="@+id/save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/bg_bat"
         android:clickable="true"
         android:focusable="true"
-        android:layout_marginEnd="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/bg_bat"
-        android:textSize="16sp"
         android:text="@string/soh"
-        android:layout_marginBottom="26dp"/>
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

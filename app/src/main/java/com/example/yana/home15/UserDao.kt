@@ -7,7 +7,8 @@ import androidx.room.Query
 @Dao
 interface UserDao {
     @Insert
-    fun saveUser(user:NotesModel)
+    fun saveUser(user: NotesModel)
+
     @Query("SELECT * FROM NotesModel")
     fun getAllUsers(): List<NotesModel>
 }
