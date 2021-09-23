@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Home15</string>
+    <string name="zag">Заголовок</string>
+    <string name="con">Контент</string>
+    <string name="sp">Очистить список</string>
+    <string name="cont">Контент</string>
+    <string name="soh">Сохранить</string>
+    <string name="data">Дата</string>
+    <string name="data1">Дата</string>
+    <string name="da">Введите дату</string>
+    <string name="veb">Выберите дату</string>
+</resources>
