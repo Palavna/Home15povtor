@@ -1,5 +1,6 @@
 package com.example.yana.home15
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,13 +14,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yana.home15.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), NotesAdapterListeners {
+class MainActivity : AppCompatActivity(), UserListener {
     private lateinit var recView: RecyclerView
-    private lateinit var adapter: NotesAdapter
-    private lateinit var zagolovok: EditText
-    private lateinit var kontent: EditText
-    private lateinit var data: EditText
-    private lateinit var delete: Button
+    private val adapter by lazy { DataListAdapter(this) }
+
+    private var userEdited: NotesModel? = null
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,10 +26,16 @@ class MainActivity : AppCompatActivity(), NotesAdapterListeners {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val toolBar = findViewById<Toolbar>(R.id.toolbar)
+        val list = RoomApp.DB?.getUserDao()?.getAllUsers()
+
+        RoomApp.DB?.getUserDao()?.getAllUsersObserve()?.observe(this, {
+            adapter.submitList(it)
+        })
 
         fun setupListeners() {
             binding.delete.setOnClickListener {
-                adapter.deleteAll()
+                val list = RoomApp.DB?.getUserDao()?.getAllUsers()
+                adapter.submitList(list)
             }
             binding.plus.setOnClickListener {
                 val intent = Intent(this, SecondActivity::class.java)
@@ -39,7 +44,7 @@ class MainActivity : AppCompatActivity(), NotesAdapterListeners {
             binding.delete.setOnClickListener {
                 AlertDialog.Builder(this)
                     .setTitle("Вы уверены что хотите удалить все записи?")
-                    .setPositiveButton("да") { _, _ -> adapter.deleteAll() }
+                    .setPositiveButton("да") { _, _ -> adapter.submitList(list) }
                     .setNegativeButton("нет") { _, _ -> }
                     .show()
             }
@@ -50,24 +55,36 @@ class MainActivity : AppCompatActivity(), NotesAdapterListeners {
         setupRecycler()
     }
 
-    override fun onResume() {
-        super.onResume()
-        val list = RoomApp.DB?.getUserDao()?.getAllUsers()
-        adapter.addAll(list)
-
-    }
-
     private fun setupViews() {
         recView = findViewById(R.id.recView)
     }
 
     private fun setupRecycler() {
-        adapter = NotesAdapter(this)
         binding.recView.adapter = adapter
     }
 
-    override fun deleteItem(position: Int) {
-        adapter.deleteItem(position)
+    override fun deleteItem(user: NotesModel) {
+        RoomApp.DB?.getUserDao()?.deleteUser(user)
+    }
+
+    override fun update(user: NotesModel) {
+//        binding.id.setText(user.id)
+//        binding.title.setText(user.title)
+//        binding.content.setText(user.content)
+//        binding.dataTv.setText(user.dataTv)
+//        userEdited = NotesModel(
+//            id = user.id,
+//            title = user.title,
+//            content = user.content,
+//            dataTv = user.dataTv
+//        )
+    }
+
+    override fun openDetails(user: NotesModel) {
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra(DetailsActivity.TV_ID, user.id)
+
+        startActivity(intent)
     }
 
     companion object {
